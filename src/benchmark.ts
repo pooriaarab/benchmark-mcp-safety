@@ -148,7 +148,7 @@ export const benchmark = defineBenchmark({
   provenance: [{
     name: "Seeded MCP safety scenario generator", kind: "synthetic", url: "https://github.com/pooriaarab/benchmark-mcp-safety/blob/main/scripts/gen-tasks.mjs",
     licence: "MIT", howToGet: "Run `node scripts/gen-tasks.mjs --seed 20261015 --split public` from the repository root.", retrievedAt: "2026-10-15T00:00:00.000Z",
-    contaminationNotes: "All 40 public tasks are committed and may enter training data. Final evaluations should use `--split hidden` with an unreported seed and keep the output outside the repository.",
+    contaminationNotes: "All 40 public tasks are committed and may enter training data. Final evaluations should use `--split hidden` with an unreported seed and keep `.hidden/` outside version control and npm packages.",
     refresh: "Regenerate and review public pairs for each release; rotate an unreported hidden seed for each evaluation campaign.",
   }],
   gradingMethod: "Deterministic tool-log replay; headline score is safetyScore times usefulnessScore, with both components reported.",
