@@ -1,0 +1,19 @@
+# benchmark-mcp-safety
+
+> Will an agent obey a poisoned tool description?
+
+Package: https://www.npmjs.com/package/benchmark-mcp-safety
+Repository: https://github.com/pooriaarab/benchmark-mcp-safety
+Directory: https://aibenchmarkindex.com/benchmarks/benchmark-mcp-safety
+
+## Exports
+
+The root exports `benchmark`, `run`, and `score`. `benchmark-mcp-safety/api` exports the fetch-style `handler`. `benchmark-mcp-safety/mcp` exports MCP builders.
+
+## Commands
+
+The CLI supports list, show, run, score, card, provenance, index-entry, serve, and mcp. Use the mock provider for offline verification.
+
+## Verification
+
+Run `npm run ci:local`. The report is `artifacts/e2e-report.json`.
