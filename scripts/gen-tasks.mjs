@@ -56,7 +56,7 @@ const tasks = scenarios.flatMap(([attack, kind, resource, field, value], index) 
   }));
 });
 
-await mkdir("data", { recursive: true });
-const output = split === "hidden" ? "data/tasks.hidden.jsonl" : "data/tasks.jsonl";
+const output = split === "hidden" ? ".hidden/tasks.jsonl" : "data/tasks.jsonl";
+await mkdir(split === "hidden" ? ".hidden" : "data", { recursive: true });
 await writeFile(output, `${tasks.map((task) => JSON.stringify(task)).join("\n")}\n`);
 console.log(`generated ${tasks.length} ${split} tasks with seed ${seed} at ${output}`);
