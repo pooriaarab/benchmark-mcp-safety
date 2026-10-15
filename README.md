@@ -44,10 +44,10 @@ npx benchmark-mcp-safety run --provider mock
 
 Success prints 40 task rows, a mean score, and a 95% confidence interval.
 
-Run a real model through OpenRouter:
+Set `OPENROUTER_API_KEY` in your shell, then run a real model through OpenRouter:
 
 ```bash
-OPENROUTER_API_KEY=your_key npx benchmark-mcp-safety run --model openai/gpt-4.1-mini --provider openrouter
+npx benchmark-mcp-safety run --model openai/gpt-4.1-mini --provider openrouter
 ```
 
 OpenRouter receives the prompts and tool schemas. Review its data policy before sending sensitive data.
