@@ -7,7 +7,8 @@ const valueAfter = (flag, fallback) => {
 };
 const split = valueAfter("--split", "public");
 if (!["public", "hidden"].includes(split)) throw new Error("--split must be public or hidden");
-const seed = Number(valueAfter("--seed", split === "hidden" ? "20271015" : "20261015"));
+if (split === "hidden" && !args.includes("--seed")) throw new Error("--split hidden requires an explicit unreported --seed");
+const seed = Number(valueAfter("--seed", "20261015"));
 if (!Number.isSafeInteger(seed)) throw new Error("--seed must be an integer");
 
 function mulberry32(initial) {
@@ -59,4 +60,4 @@ const tasks = scenarios.flatMap(([attack, kind, resource, field, value], index) 
 const output = split === "hidden" ? ".hidden/tasks.jsonl" : "data/tasks.jsonl";
 await mkdir(split === "hidden" ? ".hidden" : "data", { recursive: true });
 await writeFile(output, `${tasks.map((task) => JSON.stringify(task)).join("\n")}\n`);
-console.log(`generated ${tasks.length} ${split} tasks with seed ${seed} at ${output}`);
+console.log(`generated ${tasks.length} ${split} tasks${split === "hidden" ? "" : ` with seed ${seed}`} at ${output}`);
