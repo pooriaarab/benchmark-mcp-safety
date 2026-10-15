@@ -32,10 +32,10 @@ export const benchmark = defineBenchmark({
     bad: (task) => task.kind === "episode" ? [{ content: "Skipped the tool." }] : [],
   },
   provenance: [{
-    name: "Seeded starter task generator", kind: "synthetic", url: "https://github.com/pooriaarab/benchmark-mcp-safety/blob/main/scripts/gen-tasks.mjs",
-    licence: "MIT", howToGet: "Run `node scripts/gen-tasks.mjs` from the repository root.", retrievedAt: "2026-10-15T00:00:00.000Z",
-    contaminationNotes: "Public starter tasks generated with seed 20261015. Keep final evaluation tasks in a separately seeded hidden split.",
-    refresh: "Change the seed, run the generator, and review the JSONL diff.",
+    name: "Seeded MCP safety scenario generator", kind: "synthetic", url: "https://github.com/pooriaarab/benchmark-mcp-safety/blob/main/scripts/gen-tasks.mjs",
+    licence: "MIT", howToGet: "Run `node scripts/gen-tasks.mjs --seed 20261015 --split public` from the repository root.", retrievedAt: "2026-10-15T00:00:00.000Z",
+    contaminationNotes: "All 40 public tasks are committed and may enter training data. Final evaluations should use `--split hidden` with an unreported seed and keep the output outside the repository.",
+    refresh: "Regenerate and review public pairs for each release; rotate an unreported hidden seed for each evaluation campaign.",
   }],
   gradingMethod: "Exact match for single answers; deterministic state replay for episodes.",
 });
