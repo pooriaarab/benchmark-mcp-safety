@@ -7,6 +7,7 @@ import {
 } from "benchmark-core";
 import { benchmark, setTasksPath } from "./benchmark.js";
 import { handler } from "./api.js";
+import { startMcp } from "./mcp.js";
 import { enrichReport, renderSafetySummary } from "./report.js";
 
 const bin = "benchmark-mcp-safety";
@@ -101,6 +102,9 @@ if (args.some((arg) => arg === "--tasks") && !tasksPath) {
       process.exitCode = await runCommand(rest, jsonOutput);
     } else if (command === "score") {
       process.exitCode = await scoreCommand(rest, jsonOutput);
+    } else if (command === "mcp") {
+      await startMcp();
+      process.exitCode = 0;
     } else if (command === "serve") {
       process.exitCode = await serveCommand(rest, jsonOutput);
     } else {
