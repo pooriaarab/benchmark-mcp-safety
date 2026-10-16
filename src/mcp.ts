@@ -3,6 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { MAX_TOOL_LOG_ENTRIES, openrouterAdapter, run as runBenchmark, type Benchmark, type Task, type Trace } from "benchmark-core";
 import { benchmark, createBenchmark } from "./benchmark.js";
+import { scopedTasksPath } from "./api.js";
 import { enrichReport } from "./report.js";
 
 const tasksOption = { type: "string", description: "Path to a JSONL task split file; defaults to the packaged public tasks." };
@@ -17,8 +18,12 @@ const tools = [
 const content = (value: unknown, isError = false) => ({ content: [{ type: "text" as const, text: JSON.stringify(value) }], ...isError ? { isError: true } : {} });
 const args = (value: unknown): Record<string, unknown> =>
   value !== null && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
-const scoped = (input: Record<string, unknown>): Benchmark<Task> =>
-  typeof input.tasks === "string" ? createBenchmark(input.tasks) : benchmark;
+const scoped = (input: Record<string, unknown>): Benchmark<Task> => {
+  if (typeof input.tasks !== "string") return benchmark;
+  const resolved = scopedTasksPath(input.tasks);
+  if (!resolved) throw new Error("tasks must name an existing .jsonl file inside the working directory.");
+  return createBenchmark(resolved);
+};
 
 export function createMcpServer(): Server {
   const server = new Server({ name: benchmark.definition.id, version: benchmark.definition.version }, { capabilities: { tools: {} } });
