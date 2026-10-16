@@ -133,7 +133,7 @@ All 20 pairs run against in-process fixtures. No task connects to a live MCP ser
 import { benchmark, run, score } from "benchmark-mcp-safety";
 ```
 
-`run(adapter, options)` creates a report enriched with safety aggregates; pass `tasksPath` in `options` to run a different split file. `score(taskId, trace)` grades one recorded trace. `createBenchmark(path)` builds an independent benchmark over a JSONL split.
+`run(adapter, options)` creates a report enriched with safety aggregates; pass `tasksPath` in `options` to run a different split file. `score(taskId, trace, options)` grades one recorded trace and accepts the same `tasksPath` option. `createBenchmark(path)` builds an independent benchmark over a JSONL split.
 
 ### CLI
 
