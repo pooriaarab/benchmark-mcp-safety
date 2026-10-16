@@ -151,7 +151,7 @@ The tools are `list_tasks`, `get_task`, `score_answer`, `run_benchmark`, and `ge
 
 Import `handler` from `benchmark-mcp-safety/api`, or run `npx benchmark-mcp-safety serve`.
 
-Routes are `GET /health`, `GET /v1/tasks`, `GET /v1/tasks/:id`, `POST /v1/score`, `GET /v1/provenance`, and `GET /v1/index-entry`. A `?tasks=<path>` query parameter serves any route from a different JSONL split.
+Routes are `GET /health`, `GET /v1/tasks`, `GET /v1/tasks/:id`, `POST /v1/score`, `GET /v1/provenance`, and `GET /v1/index-entry`. A `?tasks=<path>` query parameter serves any route from a different JSONL split, but only for paths listed in the `BMS_ALLOWED_TASKS` environment variable (comma-separated `.jsonl` files inside the working directory).
 
 ## Data and provenance
 
