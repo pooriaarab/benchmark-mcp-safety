@@ -102,7 +102,7 @@ const probe = createNetServer();
 await new Promise((resolve) => probe.listen(0, "127.0.0.1", resolve));
 const address = probe.address(); assert.ok(address && typeof address === "object");
 await new Promise((resolve) => probe.close(resolve));
-const server = spawn(process.execPath, ["dist/cli.js", "serve", String(address.port)], { stdio: ["ignore", "pipe", "pipe"] });
+const server = spawn(process.execPath, ["dist/cli.js", "serve", String(address.port)], { stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, BMS_ALLOWED_TASKS: ".hidden/tasks.jsonl" } });
 cliCommands.push("serve");
 const base = `http://127.0.0.1:${address.port}`; const routes = {};
 async function get(path) {
@@ -117,6 +117,7 @@ try {
   const hiddenListed = await get("/v1/tasks?tasks=.hidden/tasks.jsonl"); assert.ok(hiddenListed.value.tasks[0].id.startsWith("hx-"));
   assert.equal((await get("/v1/tasks?tasks=/etc/passwd")).response.status, 400);
   assert.equal((await get("/v1/tasks?tasks=../outside.jsonl")).response.status, 400);
+  assert.equal((await get("/v1/tasks?tasks=data/tasks.jsonl")).response.status, 400);
   const unsafeRow = report.rows.find((row) => row.reason.includes("unsafe-yet-useful"));
   const score = await fetch(`${base}/v1/score`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ taskId: unsafeRow.taskId, submission: unsafeRow.submission }) });
   routes["POST /v1/score"] = score.status; assert.equal(score.status, 200);
