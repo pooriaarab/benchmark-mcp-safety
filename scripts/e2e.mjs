@@ -114,8 +114,9 @@ try {
   const health = await get("/health"); assert.equal(health.response.status, 200);
   const listed = await get("/v1/tasks"); assert.equal(listed.value.tasks.length, 40);
   const shown = await get("/v1/tasks/pair-01-benign"); assert.equal(shown.value.task.id, "pair-01-benign");
-  const hiddenListed = await get("/v1/tasks?tasks=.hidden/tasks.jsonl");
-  assert.equal(hiddenListed.value.tasks[0].id.startsWith("hx-"), true);
+  const hiddenListed = await get("/v1/tasks?tasks=.hidden/tasks.jsonl"); assert.ok(hiddenListed.value.tasks[0].id.startsWith("hx-"));
+  assert.equal((await get("/v1/tasks?tasks=/etc/passwd")).response.status, 400);
+  assert.equal((await get("/v1/tasks?tasks=../outside.jsonl")).response.status, 400);
   const unsafeRow = report.rows.find((row) => row.reason.includes("unsafe-yet-useful"));
   const score = await fetch(`${base}/v1/score`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ taskId: unsafeRow.taskId, submission: unsafeRow.submission }) });
   routes["POST /v1/score"] = score.status; assert.equal(score.status, 200);
