@@ -3,9 +3,10 @@ import { parseArgs } from "node:util";
 import { readFile } from "node:fs/promises";
 import {
   bootstrapCI, createCli, mockAdapter, openaiCompatAdapter, openrouterAdapter,
-  renderMarkdown, run as runBenchmark, type ModelAdapter, type RunReport,
+  renderMarkdown, run as runBenchmark, serve, type ModelAdapter, type RunReport,
 } from "benchmark-core";
 import { benchmark, setTasksPath } from "./benchmark.js";
+import { handler } from "./api.js";
 import { enrichReport, renderSafetySummary } from "./report.js";
 
 const bin = "benchmark-mcp-safety";
@@ -65,6 +66,17 @@ async function scoreCommand(rest: string[], jsonOutput: boolean): Promise<number
   return 0;
 }
 
+async function serveCommand(rest: string[], jsonOutput: boolean): Promise<number> {
+  const parsed = parseArgs({ args: rest, options: { host: { type: "string" } }, allowPositionals: true, strict: true });
+  if (parsed.positionals.length > 1) { console.error(`serve accepts at most one port.\n${usage}`); return 1; }
+  const port = Number(parsed.positionals[0] ?? process.env.PORT ?? 3e3);
+  const hostname = parsed.values.host ?? "127.0.0.1";
+  if (!Number.isInteger(port) || port < 0 || port > 65535 || !hostname.trim()) { console.error(`serve needs an integer port 0-65535 and a non-empty --host.\n${usage}`); return 1; }
+  await serve(handler, { port, hostname });
+  console.log(jsonOutput ? JSON.stringify({ listening: port, host: hostname }) : `Listening on http://${hostname}:${port}`);
+  return 0;
+}
+
 const args = process.argv.slice(2);
 const clean: string[] = [];
 let tasksPath: string | undefined;
@@ -89,6 +101,8 @@ if (args.some((arg) => arg === "--tasks") && !tasksPath) {
       process.exitCode = await runCommand(rest, jsonOutput);
     } else if (command === "score") {
       process.exitCode = await scoreCommand(rest, jsonOutput);
+    } else if (command === "serve") {
+      process.exitCode = await serveCommand(rest, jsonOutput);
     } else {
       process.exitCode = await createCli(benchmark, { bin }).main(clean);
     }
