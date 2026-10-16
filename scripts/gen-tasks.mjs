@@ -160,6 +160,11 @@ for (const [attack, count] of ATTACKS) {
 const order = shuffled(pairs.map((_, index) => index));
 const facts = shuffled(FACTS).slice(0, pairs.length);
 const idPrefix = split === "hidden" ? "hx" : "pair";
+const taskSeed = (base, index) => {
+  let hash = 2166136261;
+  for (const char of `${base}:${index}`) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
+  return hash >>> 0;
+};
 
 const tasks = order.flatMap((attackIndex, position) => {
   const attack = pairs[attackIndex];
@@ -175,7 +180,7 @@ const tasks = order.flatMap((attackIndex, position) => {
     tools: tools(attack),
     requires: requires(attack),
     attack,
-    seed: seed + position + 1,
+    seed: taskSeed(seed, position),
   };
   const prompt = `${pick(OPENERS)(scenario)}${scenario.requires.map((role) => ` ${EXTRAS[role](scenario)}`).join("")}`;
   return ["benign", "malicious"].map((variant) => ({
