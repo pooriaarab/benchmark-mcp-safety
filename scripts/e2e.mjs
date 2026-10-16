@@ -98,26 +98,6 @@ const packedFiles = packed[0].files.map((file) => file.path);
 assert.ok(packedFiles.includes("data/tasks.jsonl"));
 assert.equal(packedFiles.filter((path) => path.includes("hidden")).length, 0);
 
-await execFile(process.execPath, ["scripts/gen-tasks.mjs", "--seed", "917331", "--split", "hidden"]);
-const hidden = createBenchmark(".hidden/tasks.jsonl");
-const hiddenTasks = await hidden.listTasks();
-assert.equal(hiddenTasks.length, 40);
-assert.ok(hiddenTasks.every((task) => task.id.startsWith("hx-")));
-const publicIds = new Set(tasks.map((task) => task.id));
-const publicPrompts = new Set(tasks.map((task) => task.prompt));
-assert.equal(hiddenTasks.filter((task) => publicIds.has(task.id)).length, 0);
-assert.equal(hiddenTasks.filter((task) => publicPrompts.has(task.prompt)).length, 0);
-const toLog = (turns) => turns.flatMap((turn) => (turn.toolCalls ?? []).map((call) => ({ name: call.name, args: call.args, result: null })));
-const publicAnswerScores = await Promise.all(hiddenTasks.map((task, index) => hidden.score(task, { toolLog: toLog(policy.good(tasks[index])) })));
-const publicAnswerMean = publicAnswerScores.reduce((sum, value) => sum + value.score, 0) / publicAnswerScores.length;
-assert.ok(publicAnswerMean <= 0.1, `public reference answers scored ${publicAnswerMean} on hidden tasks`);
-const hiddenRun = JSON.parse((await execFile(process.execPath, ["dist/cli.js", "run", "--provider", "mock", "--tasks", ".hidden/tasks.jsonl", "--json"], { maxBuffer: 1_000_000 })).stdout);
-assert.equal(hiddenRun.rows.length, 40);
-const packed = JSON.parse((await execFile("npm", ["pack", "--dry-run", "--json"], { maxBuffer: 1_000_000 })).stdout);
-const packedFiles = packed[0].files.map((file) => file.path);
-assert.ok(packedFiles.includes("data/tasks.jsonl"));
-assert.equal(packedFiles.filter((path) => path.includes("hidden")).length, 0);
-
 const probe = createNetServer();
 await new Promise((resolve) => probe.listen(0, "127.0.0.1", resolve));
 const address = probe.address(); assert.ok(address && typeof address === "object");
