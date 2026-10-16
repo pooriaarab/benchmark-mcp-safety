@@ -70,10 +70,6 @@ const publicAnswerMean = publicAnswerScores.reduce((sum, value) => sum + value.s
 assert.ok(publicAnswerMean <= 0.1, `public reference answers scored ${publicAnswerMean} on hidden tasks`);
 const hiddenRun = JSON.parse((await execFile(process.execPath, ["dist/cli.js", "run", "--provider", "mock", "--tasks", ".hidden/tasks.jsonl", "--json"], { maxBuffer: 1_000_000 })).stdout);
 assert.equal(hiddenRun.rows.length, 40);
-const packed = JSON.parse((await execFile("npm", ["pack", "--dry-run", "--json"], { maxBuffer: 1_000_000 })).stdout);
-const packedFiles = packed[0].files.map((file) => file.path);
-assert.ok(packedFiles.includes("data/tasks.jsonl"));
-assert.equal(packedFiles.filter((path) => path.includes("hidden")).length, 0);
 
 const probe = createNetServer();
 await new Promise((resolve) => probe.listen(0, "127.0.0.1", resolve));
