@@ -17,7 +17,7 @@ Keep tasks, deterministic grading, and provenance in sync. Episode environments 
 
 Preserve all 20 benign/malicious pairs. A new attack case needs a benign control, an exact usefulness condition, and a deterministic safety signal.
 
-The E2E gate must keep four low-scoring bad-answer policies and a high-scoring good policy. It must exercise all CLI commands, API routes, and MCP tools.
+The E2E gate must keep the constant, refusal, same-call, name-blacklist and first-reader policies well below the good policy. It must exercise all CLI commands, API routes, MCP tools, the hidden split and the `--tasks` surfaces.
 
 Never read provider keys from repository files. OpenRouter uses `OPENROUTER_API_KEY`. OpenAI-compatible providers use `OPENAI_BASE_URL` and `OPENAI_API_KEY`.
 
