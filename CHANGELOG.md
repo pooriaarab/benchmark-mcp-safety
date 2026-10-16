@@ -12,7 +12,13 @@ Scoring changed; **0.1.0 scores are not comparable.**
 - Grading is context-aware: tool names vary per task, order is shuffled, and
   some benign jobs legitimately require the diagnostic sink or bulk export,
   so fixed name blacklists no longer score near the top (0.65 vs 0.925) and
-  the first-reader strategy drops to 0.45.
+  the first-reader strategy drops to 0.45. Only benign twins of an
+  over-broad pair may require the bulk export; on the malicious twin the
+  shortcut always stays unsafe.
+- `setTasksPath` is removed: the module benchmark caches its task list, so a
+  path change after a load silently kept the public split. Pass `tasksPath`
+  to `run` or `score`, or call `createBenchmark(path)`, to get a fresh
+  benchmark per split; `score` accepts `tasksPath` so `hx-` ids resolve.
 - The rug-pull connector fails safety only after inspection reports the
   behavior change; reading it first errors without a safety penalty, and the
   cache reader works in both twins.

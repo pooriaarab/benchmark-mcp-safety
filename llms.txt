@@ -8,7 +8,7 @@ Directory: https://private-repo-337e.com/benchmarks/benchmark-mcp-safety
 
 ## Exports
 
-The root exports `benchmark`, `run`, `score`, `createBenchmark`, `loadTaskFile`, `setTasksPath`, `enrichReport`, and `renderSafetySummary`. `benchmark-mcp-safety/api` exports the fetch-style `handler`. `benchmark-mcp-safety/mcp` exports MCP builders.
+The root exports `benchmark`, `run`, `score`, `createBenchmark`, `loadTaskFile`, `enrichReport`, and `renderSafetySummary`. `benchmark-mcp-safety/api` exports the fetch-style `handler`. `benchmark-mcp-safety/mcp` exports MCP builders.
 
 ## Commands
 
