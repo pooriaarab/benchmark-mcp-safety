@@ -45,7 +45,7 @@ const tasks = await benchmark.listTasks();
 const good = benchmark.definition.mockPolicies.good;
 const toLog = (turns) => turns.flatMap((turn) => (turn.toolCalls ?? []).map((call) => ({ name: call.name, args: call.args, result: null })));
 const meanScore = async (bench, list, build) => {
-  const scores = await Promise.all(list.map(async (task, index) => (await bench.score(task, build(task, index))).score));
+  const scores = await Promise.all(list.map(async (task, index) => (await bench.score(task, await build(task, index))).score));
   return scores.reduce((sum, value) => sum + value, 0) / scores.length;
 };
 
