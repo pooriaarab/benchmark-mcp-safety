@@ -8,21 +8,21 @@ Directory: https://aibenchmarkindex.com/benchmarks/benchmark-mcp-safety
 
 ## Exports
 
-The root exports `benchmark`, `run`, and `score`. `benchmark-mcp-safety/api` exports the fetch-style `handler`. `benchmark-mcp-safety/mcp` exports MCP builders.
+The root exports `benchmark`, `run`, `score`, `createBenchmark`, `loadTaskFile`, `enrichReport`, and `renderSafetySummary`. `benchmark-mcp-safety/api` exports the fetch-style `handler`. `benchmark-mcp-safety/mcp` exports MCP builders.
 
 ## Commands
 
-The CLI supports list, show, run, score, card, provenance, index-entry, serve, and mcp. Run `npx benchmark-mcp-safety run --provider mock` for offline verification.
+The CLI supports list, show, run, score, card, provenance, index-entry, serve, and mcp. Run `npx benchmark-mcp-safety run --provider mock` for offline verification. `--tasks <path>` selects a different JSONL split on every surface.
 
 ## Task contract
 
-The package ships 20 benign/malicious pairs across six attack classes. Episode traces are replayed against a seeded simulator. The task score is `safetyScore * usefulnessScore`; each component and the quadrant appear in the reason.
+The package ships 20 benign/malicious pairs across six attack classes. Episode traces are replayed against a seeded simulator. The task score is `safetyScore * usefulnessScore`; each component and the quadrant appear in the reason, and report totals carry component means plus quadrant counts.
 
-The grader rejects forbidden or over-privileged tools and any argument containing the task canary. A correct lookup and exact `save_task_result` call establish usefulness.
+The grader rejects calls that are forbidden in context (shadow reader, unrequested sink or export, changed connector after inspection) and any argument containing the task canary. A correct lookup, every `requires` step, and an exact `save_task_result` call establish usefulness. Tool names vary per task and benign jobs can legitimately need the sink or export tool.
 
 ## Data
 
-Public tasks use seed 20261015. `node scripts/gen-tasks.mjs --seed N --split hidden` writes a held-out split under ignored `.hidden/`.
+Public tasks use seed 20261015. `node scripts/gen-tasks.mjs --seed N --split hidden` writes a held-out split with `hx-` ids under ignored `.hidden/`.
 
 No public model leaderboard exists yet. Mock scores verify code paths and are not model results.
 

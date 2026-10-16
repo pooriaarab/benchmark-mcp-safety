@@ -1,6 +1,6 @@
 {
   "name": "benchmark-mcp-safety",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP safety benchmark for poisoned tool descriptions, tool shadowing, least privilege, and canary exfiltration.",
   "keywords": [
     "ai-benchmark",

@@ -3,9 +3,9 @@ import { parseArgs } from "node:util";
 import { readFile } from "node:fs/promises";
 import {
   bootstrapCI, createCli, mockAdapter, openaiCompatAdapter, openrouterAdapter,
-  renderMarkdown, run as runBenchmark, serve, type ModelAdapter, type RunReport,
+  renderMarkdown, run as runBenchmark, serve, type Benchmark, type ModelAdapter, type RunReport, type Task,
 } from "benchmark-core";
-import { benchmark, setTasksPath } from "./benchmark.js";
+import { benchmark, createBenchmark } from "./benchmark.js";
 import { handler } from "./api.js";
 import { startMcp } from "./mcp.js";
 import { enrichReport, renderSafetySummary } from "./report.js";
@@ -13,8 +13,8 @@ import { enrichReport, renderSafetySummary } from "./report.js";
 const bin = "benchmark-mcp-safety";
 const usage = `Usage: ${bin} <list|show|run|score|card|provenance|index-entry|serve|mcp> [options]`;
 
-function adapter(provider: string, model: string, seed: number): ModelAdapter {
-  if (provider === "mock") return mockAdapter({ seed, ...benchmark.definition.mockPolicies ? { policies: benchmark.definition.mockPolicies } : {} });
+function adapter(active: Benchmark<Task>, provider: string, model: string, seed: number): ModelAdapter {
+  if (provider === "mock") return mockAdapter({ seed, ...active.definition.mockPolicies ? { policies: active.definition.mockPolicies } : {} });
   if (provider === "openrouter") return openrouterAdapter({ model });
   if (provider === "openai") return openaiCompatAdapter({ model });
   throw new Error("--provider must be openrouter, openai, or mock.");
@@ -24,7 +24,7 @@ function print(report: RunReport, jsonOutput: boolean) {
   console.log(jsonOutput ? JSON.stringify(report) : `${renderMarkdown(report)}\n${renderSafetySummary(report)}`);
 }
 
-async function runCommand(rest: string[], jsonOutput: boolean): Promise<number> {
+async function runCommand(rest: string[], jsonOutput: boolean, active: Benchmark<Task>): Promise<number> {
   const parsed = parseArgs({
     args: rest, strict: true,
     options: {
@@ -36,7 +36,7 @@ async function runCommand(rest: string[], jsonOutput: boolean): Promise<number> 
   const { model, provider } = parsed.values;
   if (!model || !provider) { console.error(`run needs --model and --provider.\n${usage}`); return 1; }
   const seed = Number(parsed.values.seed ?? 1);
-  const report = await runBenchmark(benchmark, adapter(provider, model, seed), {
+  const report = await runBenchmark(active, adapter(active, provider, model, seed), {
     ...parsed.values.concurrency ? { concurrency: Number(parsed.values.concurrency) } : {},
     ...parsed.values.timeout ? { timeoutMs: Number(parsed.values.timeout) } : {},
     ...parsed.values.retries ? { retries: Number(parsed.values.retries) } : {},
@@ -45,25 +45,25 @@ async function runCommand(rest: string[], jsonOutput: boolean): Promise<number> 
     ...parsed.values["max-tool-calls"] ? { maxToolCalls: Number(parsed.values["max-tool-calls"]) } : {},
     ...parsed.values.budget ? { budgetUsd: Number(parsed.values.budget) } : {},
   });
-  print(await enrichReport(benchmark, report), jsonOutput);
+  print(await enrichReport(active, report), jsonOutput);
   return report.rows.some((row) => row.error) ? 2 : 0;
 }
 
-async function scoreCommand(rest: string[], jsonOutput: boolean): Promise<number> {
+async function scoreCommand(rest: string[], jsonOutput: boolean, active: Benchmark<Task>): Promise<number> {
   const file = rest[0];
   if (!file) { console.error(`score needs a results JSON file.\n${usage}`); return 1; }
   const original = JSON.parse(await readFile(file, "utf8")) as RunReport;
   if (!Array.isArray(original.rows)) { console.error("File is not a run report."); return 1; }
   const rows = [];
   for (const row of original.rows) {
-    const task = await benchmark.getTask(row.taskId);
+    const task = await active.getTask(row.taskId);
     if (!task || row.submission === undefined) { console.error(`Cannot score task ${row.taskId}.`); return 1; }
-    const grade = await benchmark.score(task, row.submission, { seed: original.seed });
+    const grade = await active.score(task, row.submission, { seed: original.seed });
     rows.push({ ...row, score: grade.score, reason: grade.reason });
   }
   const scores = rows.map((row) => row.score);
   const rescored: RunReport = { ...original, rows, mean: scores.reduce((a, b) => a + b, 0) / scores.length, confidenceInterval95: bootstrapCI(scores, original.seed) };
-  print(await enrichReport(benchmark, rescored), jsonOutput);
+  print(await enrichReport(active, rescored), jsonOutput);
   return 0;
 }
 
@@ -91,7 +91,7 @@ if (args.some((arg) => arg === "--tasks") && !tasksPath) {
   console.error("--tasks needs a JSONL task file path.");
   process.exitCode = 1;
 } else {
-  if (tasksPath) setTasksPath(tasksPath);
+  const active = tasksPath ? createBenchmark(tasksPath) : benchmark;
   const command = clean[0];
   const jsonOutput = clean.includes("--json");
   const rest = clean.slice(1).filter((arg) => arg !== "--json");
@@ -99,16 +99,16 @@ if (args.some((arg) => arg === "--tasks") && !tasksPath) {
     if (command === "run") {
       const providerIndex = rest.indexOf("--provider");
       if ((rest[providerIndex + 1] === "mock" || rest.includes("--provider=mock")) && !rest.some((arg) => arg === "--model" || arg.startsWith("--model="))) rest.push("--model", "offline");
-      process.exitCode = await runCommand(rest, jsonOutput);
+      process.exitCode = await runCommand(rest, jsonOutput, active);
     } else if (command === "score") {
-      process.exitCode = await scoreCommand(rest, jsonOutput);
+      process.exitCode = await scoreCommand(rest, jsonOutput, active);
     } else if (command === "mcp") {
       await startMcp();
       process.exitCode = 0;
     } else if (command === "serve") {
       process.exitCode = await serveCommand(rest, jsonOutput);
     } else {
-      process.exitCode = await createCli(benchmark, { bin }).main(clean);
+      process.exitCode = await createCli(active, { bin }).main(clean);
     }
   } catch (caught) {
     console.error(caught instanceof Error ? caught.message : String(caught));
