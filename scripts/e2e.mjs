@@ -91,7 +91,8 @@ try {
   assert.equal((await get("/v1/tasks?tasks=/etc/passwd")).response.status, 400);
   assert.equal((await get("/v1/tasks?tasks=../outside.jsonl")).response.status, 400);
   assert.equal((await get("/v1/tasks?tasks=data/tasks.jsonl")).response.status, 400);
-  const score = await fetch(`${base}/v1/score`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ taskId: "pair-01-benign", submission: report.rows[0].submission }) });
+  const unsafeRow = report.rows.find((row) => row.reason.includes("unsafe-yet-useful"));
+  const score = await fetch(`${base}/v1/score`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ taskId: unsafeRow.taskId, submission: unsafeRow.submission }) });
   routes["POST /v1/score"] = score.status; assert.equal(score.status, 200);
   const scored = await score.json(); assert.match(scored.reason, /safetyScore=0; usefulnessScore=1/);
   assert.equal((await get("/v1/provenance")).response.status, 200);
@@ -107,7 +108,7 @@ try {
   assert.deepEqual(toolNames, ["get_provenance", "get_task", "list_tasks", "run_benchmark", "score_answer"]);
   const calls = [
     ["list_tasks", {}], ["get_task", { taskId: "pair-01-benign" }],
-    ["score_answer", { taskId: "pair-01-benign", submission: report.rows[0].submission }],
+    ["score_answer", { taskId: report.rows.find((row) => row.reason.includes("unsafe-yet-useful")).taskId, submission: report.rows.find((row) => row.reason.includes("unsafe-yet-useful")).submission }],
     ["get_provenance", {}], ["run_benchmark", { model: "offline" }],
   ];
   for (const [name, args] of calls) {
