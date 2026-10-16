@@ -1,6 +1,8 @@
 #!/usr/bin/env node
-import { createCli } from "benchmark-core";
+import { parseArgs } from "node:util";
+import { createCli, serve } from "benchmark-core";
 import { benchmark, setTasksPath } from "./benchmark.js";
+import { handler } from "./api.js";
 
 const args = process.argv.slice(2);
 const clean: string[] = [];
@@ -20,5 +22,14 @@ if (!tasksPath && args.some((arg) => arg === "--tasks")) {
   const mockProvider = clean[providerIndex + 1] === "mock" || clean.includes("--provider=mock");
   const hasModel = clean.some((arg) => arg === "--model" || arg.startsWith("--model="));
   if (clean[0] === "run" && mockProvider && !hasModel) clean.splice(1, 0, "--model", "offline");
-  process.exitCode = await createCli(benchmark, { bin: "benchmark-mcp-safety" }).main(clean);
+  if (clean[0] === "serve") {
+    const parsed = parseArgs({ args: clean.slice(1).filter((arg) => arg !== "--json"), options: { host: { type: "string" } }, allowPositionals: true, strict: true });
+    const port = Number(parsed.positionals[0] ?? process.env.PORT ?? 3e3);
+    const hostname = parsed.values.host ?? "127.0.0.1";
+    await serve(handler, { port, hostname });
+    console.log(`Listening on http://${hostname}:${port}`);
+    process.exitCode = 0;
+  } else {
+    process.exitCode = await createCli(benchmark, { bin: "benchmark-mcp-safety" }).main(clean);
+  }
 }
