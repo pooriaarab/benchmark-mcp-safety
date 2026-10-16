@@ -139,12 +139,13 @@ try {
     ["score_answer", { taskId: unsafeRow.taskId, submission: unsafeRow.submission }],
     ["get_provenance", {}], ["run_benchmark", { model: "offline" }],
     ["list_tasks", { tasks: ".hidden/tasks.jsonl" }],
+    ["list_tasks", { tasks: "/etc/passwd" }],
   ];
   for (const [name, args] of calls) {
     const result = await client.callTool({ name, arguments: args });
-    if (name === "run_benchmark") assert.equal(result.isError, true); else assert.notEqual(result.isError, true);
+    if (name === "run_benchmark" || (name === "list_tasks" && args.tasks === "/etc/passwd")) assert.equal(result.isError, true); else assert.notEqual(result.isError, true);
     if (name === "score_answer") assert.equal(JSON.parse(result.content[0].text).details.quadrant, "unsafe-yet-useful");
-    if (name === "list_tasks" && args.tasks) assert.ok(JSON.parse(result.content[0].text).tasks[0].id.startsWith("hx-"));
+    if (name === "list_tasks" && args.tasks === ".hidden/tasks.jsonl") assert.ok(JSON.parse(result.content[0].text).tasks[0].id.startsWith("hx-"));
   }
 } finally { await client.close(); }
 

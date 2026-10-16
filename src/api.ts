@@ -4,7 +4,7 @@ import { createHandler } from "benchmark-core";
 import { benchmark, createBenchmark } from "./benchmark.js";
 
 const fallback = createHandler(benchmark);
-export const scopedTasksPath =(value: string): string | undefined => {
+export const scopedTasksPath = (value: string): string | undefined => {
   if (!value.endsWith(".jsonl")) return undefined;
   try {
     const root = realpathSync(process.cwd());
