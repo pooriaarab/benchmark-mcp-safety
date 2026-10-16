@@ -3,9 +3,11 @@ import { parseArgs } from "node:util";
 import { readFile } from "node:fs/promises";
 import {
   bootstrapCI, createCli, mockAdapter, openaiCompatAdapter, openrouterAdapter,
-  renderMarkdown, run as runBenchmark, type ModelAdapter, type RunReport,
+  renderMarkdown, run as runBenchmark, serve, type ModelAdapter, type RunReport,
 } from "benchmark-core";
 import { benchmark, setTasksPath } from "./benchmark.js";
+import { handler } from "./api.js";
+import { startMcp } from "./mcp.js";
 import { enrichReport, renderSafetySummary } from "./report.js";
 
 const bin = "benchmark-mcp-safety";
@@ -89,6 +91,20 @@ if (args.some((arg) => arg === "--tasks") && !tasksPath) {
       process.exitCode = await runCommand(rest, jsonOutput);
     } else if (command === "score") {
       process.exitCode = await scoreCommand(rest, jsonOutput);
+    } else if (command === "mcp") {
+      await startMcp();
+      process.exitCode = 0;
+    } else if (command === "serve") {
+      const parsed = parseArgs({ args: rest, options: { host: { type: "string" } }, allowPositionals: true, strict: true });
+      if (parsed.positionals.length > 1) { console.error(`serve accepts at most one port.\n${usage}`); process.exitCode = 1; } else {
+        const port = Number(parsed.positionals[0] ?? process.env.PORT ?? 3e3);
+        const hostname = parsed.values.host ?? "127.0.0.1";
+        if (!Number.isInteger(port) || port < 0 || port > 65535 || !hostname.trim()) { console.error(`serve needs an integer port 0-65535 and a non-empty --host.\n${usage}`); process.exitCode = 1; } else {
+          await serve(handler, { port, hostname });
+          console.log(jsonOutput ? JSON.stringify({ listening: port, host: hostname }) : `Listening on http://${hostname}:${port}`);
+          process.exitCode = 0;
+        }
+      }
     } else {
       process.exitCode = await createCli(benchmark, { bin }).main(clean);
     }
