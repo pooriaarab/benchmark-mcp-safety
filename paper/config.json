@@ -1,0 +1,14 @@
+{
+  "title": "MCP Safety: Measuring Useful Action across Tool Trust Boundaries",
+  "orcid": "https://orcid.org/0009-0005-9964-6841",
+  "keywords": [
+    "MCP",
+    "tool safety",
+    "prompt injection",
+    "least privilege",
+    "simulated control ablation"
+  ],
+  "code_url": "https://github.com/pooriaarab/benchmark-mcp-safety",
+  "artifact_name": "mcp-safety-paper.pdf",
+  "source_commit": "c6a7d7b72f9aeea31ec4cb2183c07b02a026e1ae"
+}
