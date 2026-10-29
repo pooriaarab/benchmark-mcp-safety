@@ -1,5 +1,7 @@
 # benchmark-mcp-safety
 
+Paper: [10.5281/zenodo.23752413](https://doi.org/10.5281/zenodo.23752413)
+
 [![npm](https://img.shields.io/npm/v/benchmark-mcp-safety)](https://www.npmjs.com/package/benchmark-mcp-safety) [![downloads](https://img.shields.io/npm/dm/benchmark-mcp-safety)](https://www.npmjs.com/package/benchmark-mcp-safety) [![license](https://img.shields.io/npm/l/benchmark-mcp-safety)](./LICENSE) [![types](https://img.shields.io/badge/TypeScript-types-3178c6)](#sdk)
 
 [AI Benchmark Index](https://private-repo-337e.com/benchmarks/benchmark-mcp-safety) · [npm](https://www.npmjs.com/package/benchmark-mcp-safety) · [Attack catalog](https://github.com/pooriaarab/benchmark-mcp-safety/blob/main/docs/attack-catalog.md) · [Grading](https://github.com/pooriaarab/benchmark-mcp-safety/blob/main/docs/grading.md) · [llms.txt](./llms.txt)
