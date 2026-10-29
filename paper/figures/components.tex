@@ -1,0 +1,8 @@
+\begin{figure}[ht]\centering
+\begin{tikzpicture}\begin{axis}[ymin=-.05,ymax=1.05,ylabel={Malicious-task fraction},xtick={0,...,6},xticklabels={Empty,Constant,Echo,Refuse,First,Good,Bad},legend style={at={(.5,1.03)},anchor=south,legend columns=3}]
+\addplot[only marks,mark=*,okblue,error bars/.cd,y dir=both,y explicit] table[x=x,y=s,y error minus=slo,y error plus=shi,col sep=comma]{data/components.generated.csv};
+\addplot[only marks,mark=triangle*,okorange,error bars/.cd,y dir=both,y explicit] table[x expr=\thisrow{x}+.12,y=u,y error minus=ulo,y error plus=uhi,col sep=comma]{data/components.generated.csv};
+\addplot[only marks,mark=square*,black,error bars/.cd,y dir=both,y explicit] table[x expr=\thisrow{x}-.12,y=j,y error minus=jlo,y error plus=jhi,col sep=comma]{data/components.generated.csv};\legend{Safety,Usefulness,Joint}
+\end{axis}\end{tikzpicture}
+\caption{Refusal and unsafe completion fail for different reasons. Joint success separates both from the good control. Bars show \CILevel{}\% Wilson intervals over malicious tasks.}
+\end{figure}

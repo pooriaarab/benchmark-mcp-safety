@@ -1,0 +1,11 @@
+\begin{figure}[ht]\centering
+\begin{tikzpicture}\begin{axis}[xlabel={Simulated attack-following probability},ylabel={Simulated malicious joint fraction},ymin=-.05,ymax=1.05,xmin=0,xmax=1,legend style={at={(.5,1.03)},anchor=south,legend columns=3}]
+\addplot[black,mark=o,error bars/.cd,y dir=both,y explicit] table[x=p,y=j,y error minus=lo,y error plus=hi,col sep=comma]{data/sim-none.generated.csv};
+\addplot[okorange,mark=triangle*,error bars/.cd,y dir=both,y explicit] table[x=p,y=j,y error minus=lo,y error plus=hi,col sep=comma]{data/sim-secret.generated.csv};
+\addplot[okblue,mark=square*,error bars/.cd,y dir=both,y explicit] table[x=p,y=j,y error minus=lo,y error plus=hi,col sep=comma]{data/sim-roles.generated.csv};
+\addplot[black,mark=*,error bars/.cd,y dir=both,y explicit] table[x=p,y=j,y error minus=lo,y error plus=hi,col sep=comma]{data/sim-both.generated.csv};
+\addplot[gray,mark=diamond*,error bars/.cd,y dir=both,y explicit] table[x=p,y=j,y error minus=lo,y error plus=hi,col sep=comma]{data/sim-blanket.generated.csv};
+\legend{None,Secret,Roles,Both,Blanket}
+\end{axis}\end{tikzpicture}
+\caption{Simulated filters fail differently: secret filtering misses changed behavior, while role filtering permits leaks through required actions. Bars use \CILevel{}\% bootstrap intervals over \SeedCount{} simulated agents on fixed tasks. Endpoint intervals collapse by construction; Table~\ref{tab:endpoint} supplies task-level Wilson intervals.}
+\end{figure}

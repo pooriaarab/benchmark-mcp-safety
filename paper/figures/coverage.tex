@@ -1,0 +1,7 @@
+\begin{figure}[ht]\centering
+\begin{tikzpicture}\begin{axis}[ybar,ymin=0,ymax=5,bar width=10pt,ylabel={Task count},xtick={0,...,5},xticklabels={Description,Shadow,Scope,Skill,Rug pull,Canary},legend style={at={(.5,1.03)},anchor=south,legend columns=2}]
+\addplot[fill=okblue] table[x=x,y=benign,col sep=comma]{data/coverage.generated.csv};
+\addplot[fill=white,pattern=north east lines] table[x=x,y=malicious,col sep=comma]{data/coverage.generated.csv};\legend{Benign,Malicious}
+\end{axis}\end{tikzpicture}
+\caption{The corpus preserves paired coverage across all attack categories. Counts describe the complete fixed design, not estimated population rates.}
+\end{figure}

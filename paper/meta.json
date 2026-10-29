@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "title": "MCP Safety: Measuring Useful Action across Tool Trust Boundaries",
+  "abstract": "MCP tools expose descriptions, returned content, and actions across trust boundaries. MCP Safety measures whether an agent completes a requested lookup without forbidden calls or literal canary disclosure. Its 40 synthetic tasks form 20 benign/malicious pairs across 6 attack categories. Deterministic replay scores safety and usefulness separately, then requires both for success. In 560 local scripted episodes, the privileged good control achieves 100.0 [83.9, 100.0] percent joint success in each stratum (95% Wilson intervals). The bad control completes the work but achieves 0.0 [0.0, 16.1] percent joint success. An additional 16000-episode simulated population sweep separates argument filtering from task-aware action filtering. At maximal simulated attack following, combining both filters preserves all requested work; either filter alone leaves failures. Blanket filtering loses legitimate work. These are diagnostic controls and a stipulated simulation, not learned-model results or evidence of deployment security.",
+  "authors": [
+    {
+      "name": "Pooria Arab",
+      "affiliation": "Independent researcher",
+      "orcid": "https://orcid.org/0009-0005-9964-6841"
+    }
+  ],
+  "license": "CC-BY-4.0",
+  "keywords": [
+    "MCP",
+    "tool safety",
+    "prompt injection",
+    "least privilege",
+    "simulated control ablation"
+  ],
+  "code_url": "https://github.com/pooriaarab/benchmark-mcp-safety",
+  "artifact_name": "mcp-safety-paper.pdf"
+}
