@@ -1,0 +1,13 @@
+{
+  "pages": 10,
+  "baselineEpisodes": 560,
+  "simulatedEpisodes": 16000,
+  "replayedUniqueTraces": 102,
+  "baselineRepeatsAgree": true,
+  "rawSummaryAgreement": true,
+  "asciiAbstract": true,
+  "pdfSha256": "f9b81373097a420206a2ce30c943d4c671a9076ad3cbbddd5b6d20e69db00219",
+  "sourceCommit": "c6a7d7b72f9aeea31ec4cb2183c07b02a026e1ae",
+  "preregCommit": "c618b6a3594fa96a7ae7547560c3fda0c1b79fc1",
+  "figures": 3
+}

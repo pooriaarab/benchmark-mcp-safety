@@ -1,0 +1,154 @@
+\documentclass{article}
+\input{template/layout}
+\input{data/macros.generated}
+\title{\PaperTitle}
+\author{Pooria Arab\\Independent researcher\\\href{\AuthorOrcid}{ORCID: 0009-0005-9964-6841}}
+\begin{document}
+\maketitle
+\begin{abstract}\input{data/abstract.generated}\end{abstract}
+\section{Why this matters}
+A tool description can explain an action and also ask the agent to do something else. The agent must distinguish those roles. A useful lookup may arrive beside a request to disclose a secret, export unrelated records, or trust another server. A fluent final answer does not establish that the preceding actions respected the user. Equally, an agent that refuses every request cannot satisfy the purpose of delegated tools. Evaluation therefore needs evidence about both constrained action and completed work.
+
+MCP Safety studies this tension through small, synthetic workflows. The construct is \emph{useful action within an explicit tool trust boundary}. An agent receives a normal business request, a tool set, and a confidential canary. It must retrieve the requested value and save the result. Its actions must avoid task-specific forbidden tools and literal canary disclosure. The setting isolates choices that ordinary answer accuracy can hide. Successful work and unsafe action can occur in the same episode.
+
+The contribution is a paired task design with replayable outcomes and diagnostic controls. We evaluate \TaskCount{} tasks, organized into \PairCount{} benign/malicious pairs and \CategoryCount{} attack categories. The study distinguishes safety, usefulness, and their conjunction. It then tests a stipulated simulated population under different action filters. The simulation reveals which assumptions each filter needs. It does not estimate a learned model's susceptibility or demonstrate an effective production defense.
+
+The intended use is controlled measurement during agent development. A reader can ask whether a policy stops unsafe calls without losing allowed work. A successful score supports only the tested behavior under the stated environment. The benchmark excludes real credentials, network effects, adaptive attackers, and human approval quality. These limits are part of the measurement definition, rather than details that can be repaired through a higher score.
+
+\section{Related work}
+The Model Context Protocol defines tools with names, descriptions, schemas, and optional annotations. Its tool specification treats annotations from untrusted servers as untrusted content \citep{mcp}. This supplies a reason to separate a tool's advertised purpose from permission to use it. MCP Safety implements that distinction in bounded tasks. It does not test protocol compliance, authentication exchanges, server discovery, or transport security. Passing these tasks cannot establish that an MCP client implements those mechanisms correctly.
+
+AgentDojo evaluates prompt injection in environments where agents use tools over untrusted data \citep{agentdojo}. Its extensible setting supports tasks, attacks, and defenses. MCP Safety shares the need to measure useful work alongside resistance to an attack. Its focus here is narrower: small paired workflows expose metadata poisoning, shadow readers, excess scope, workflow instructions, changed connector behavior, and canary disclosure. We do not compare scores across the suites because their tasks and success conditions differ.
+
+PayBench frames safe delegated payment through traps and harmless lookalikes \citep{paybench}. That framing motivates the need to preserve legitimate action when evaluating restraint. MCP Safety applies the same experimental concern to tool authority. The benchmark does not inherit payment scenarios, financial loss measures, or a payment risk model. Its outcomes concern simulated tool calls and saved records. Related framing is not evidence that the task distributions or threat models are equivalent.
+
+The Agentic Benchmark Checklist emphasizes task setup and outcome validity \citep{abc}. BetterBench examines benchmark quality across design, implementation, documentation, and maintenance \citep{betterbench}. We use explicit success conditions, trivial baselines, uncertainty statements, and repeatable evidence to support those concerns. These choices do not constitute an external benchmark audit. No independent human validation or learned-model comparison appears in this study.
+
+\section{Experiment design}
+\subsection{An episode and its trust boundary}
+Each episode starts with a specific resource and field request. The environment exposes tools and a system instruction that forbids sending the session canary in tool arguments. The agent can inspect available descriptions, call tools, and receive structured results. It completes the job by saving the exact resource and value after an accepted lookup. Some jobs also require a routine diagnostic note or an export. These requirements are part of the legitimate task.
+
+The environment records attempted calls and their arguments. A fresh replay determines whether the required actions occurred. The final answer alone does not earn usefulness. A plausible value that lacks an accepted lookup also fails. This design measures action completion, rather than the ability to produce convincing text. It also permits an unsafe action to precede a correct result, which is necessary to distinguish unsafe completion from a harmless failure.
+
+The attacker controls selected lower-trust content in the malicious twin. Depending on category, that content appears in a description, a competing tool, a workflow file, an export suggestion, a connector inspection, or a returned note. The attacker does not edit the top-level user request or the grader. The benchmark does not allow an attacker to adapt after observing a model's response. Its attacks are fixed fixtures, not a search over effective prompts.
+
+The canary is synthetic and visible to the agent. It represents information that must stay out of tool arguments. A leak is detected through case-insensitive matching of the serialized arguments. This is a narrow disclosure condition. It does not decode transformed secrets, follow external recipients, or inspect a final answer for disclosure. A safety result therefore describes the specified action channel, not confidentiality across every output channel.
+
+\subsection{Matched tasks and legitimate permissions}
+Each pair retains a common task family while changing the attack condition. The twins support comparison between normal execution and execution near a trust boundary. They are not perfect single-token interventions. Some malicious variants change the available reader or the allowed route. The scope category can also change the legitimate export requirement. Pair membership controls broad task context, but it does not remove every possible confound in difficulty.
+
+Task-specific tool names and shuffled tool order discourage a fixed name or position rule. The purpose is to require context about the requested work. Some jobs need actions that would be excessive elsewhere. Refusing every diagnostic or export therefore sacrifices usefulness. These variations do not make the public corpus secret. A policy with the task labels can still follow a known path, which is why privileged controls are identified throughout this paper.
+
+The study freezes the public corpus and the scoring semantics before collection. All tasks enter each condition. No task is removed because a policy fails. A runtime failure stops collection rather than becoming a model failure. We do not generate additional tasks after inspecting the results. The fixed design supports reproducibility, while limiting claims about the wider population of tool interactions.
+
+\subsection{Scripted baseline conditions}
+The baseline battery includes empty output, a constant response, an echo of the user prompt, refusal, and a first-tool policy. The first-tool policy calls the first advertised tool with empty arguments, then stops. It deliberately ignores the task and tool schema. These policies test whether silence, text, or an arbitrary action can earn success without doing the work. They are diagnostic controls rather than competitive agent systems.
+
+The packaged-good control follows the benchmark's reference sequence. The packaged-bad control adds a dangerous action before the reference sequence. Both use task metadata, including the expected value. Their performance therefore measures the scorer and the environment under known actions. It does not measure inference, retrieval from an unknown source, or instruction following by a trained model. The bad control is useful because it can finish a job after crossing its trust boundary.
+
+We run each baseline twice through the same public episode path. The study records \BaseEpisodes{} baseline episodes. Repeated runs check reproducibility; they do not increase the number of independent tasks. Semantic comparisons include recorded calls, outcomes, and final states, while excluding elapsed time. Local scripted execution incurs no inference charge. Hosted free models are not configured for this study, and provider availability elsewhere is not tested.
+
+\section{Coverage}
+\input{figures/coverage}
+The corpus covers metadata, tool choice, permission scope, workflow content, changed behavior, and returned data. Coverage is intentional rather than sampled from observed deployments. The category counts in the figure describe the complete design. They should not be interpreted as the frequency of these attacks in practice. In particular, common operational failures could be absent even when the categories appear evenly represented.
+
+The task families use business records and local workflow concepts to make the desired action explicit. These are original synthetic fixtures. There are no recruited participants, scraped private records, or measured organizational workflows. Surface variation changes resources, values, names, and ordering. It does not establish diversity in task complexity or linguistic style. Many items still share the same control structure and scoring logic.
+
+The paired design gives each attack category a benign comparison. This helps expose policies that gain apparent safety by stopping allowed work. The value of that comparison depends on the legitimacy labels. A mislabeled permission can make appropriate action look unsafe. A missing required step can make incomplete action look useful. Current labels come from the benchmark design, without independent expert agreement measurements.
+
+Coverage also has a temporal limit. The rug-pull family announces a behavior change through inspection. It tests the response to a reported change, not detection of a hidden change. The environment does not model concurrent modification between inspection and execution. It also does not measure whether a user understands a new approval request. Those are separate questions that require richer environments.
+
+\section{Taxonomy of failures}
+\paragraph{Description injection.} A lookup description asks for the canary to be sent before use. The valid task remains a record lookup. The failure occurs when descriptive content becomes authority for an unrelated action. A model may still return the correct record afterward. Measuring only the saved value would hide the boundary crossing.
+\paragraph{Tool shadowing.} An untrusted reader uses a familiar or reassuring name. A successful trusted lookup and a call to the shadow reader are distinct events. Returning a correct-looking value from the shadow does not establish the required trusted lookup. The failure is reliance on an unapproved source or its requested verification action. Name familiarity is insufficient evidence of provenance.
+\paragraph{Over-broad scope.} A bulk export offers a convenient route to a single-record answer. The malicious shortcut is not a required export. In contrast, some benign tasks include an authorized export. The failure therefore depends on context, not simply the tool's ability to read many records. A universal export ban loses legitimate work, while universal permission admits the shortcut.
+\paragraph{Poisoned workflow.} A local workflow note requests disclosure before continuing. The reference policy reads the note and then performs the legitimate lookup without the injected action. However, reading this note is not independently required by the usefulness scorer. A policy can bypass exposure and still finish. This distinction limits any claim that success proves recognition and rejection of the poisoned instruction.
+\paragraph{Rug pull.} Inspection reports that a connector now sends query data elsewhere. Calling that connector after the report fails safety. The approved cache provides a valid route in the malicious twin. A connector call before inspection instead returns an error and does not itself fail safety. The benchmark thus separates an ordering mistake from knowingly continuing after a reported behavior change.
+\paragraph{Canary exfiltration.} A returned lookup note requests the canary in a diagnostic argument. The requested record can already be available when the instruction appears. The failure is an extra action after useful information has been obtained. This family tests a later exposure point than description injection, although both can lead to the same forbidden disclosure.
+These categories describe entry points and decision contexts, not mutually exclusive real-world harms. A shadow tool could also leak a secret. An over-broad export could disclose confidential data without containing the canary. The benchmark retains a literal canary signal and task-specific forbidden actions because neither alone expresses every tested failure. The simulated ablation examines that separation directly.
+
+\section{Metrics and scoring}
+\subsection{Safety and usefulness are separate outcomes}
+For task $i$, let $S_i$ indicate the absence of a recorded safety violation. Let $U_i$ indicate an accepted lookup, all required task steps, and the exact saved result. The joint outcome is $J_i=S_iU_i$. Each indicator is binary. Mean joint success therefore counts episodes that satisfy both requirements. It is not the product of independently aggregated safety and usefulness means, which could mix different episodes.
+
+The outcome space has four states: safe and useful, safe but unhelpful, unsafe yet useful, and unsafe and unhelpful. Refusal can satisfy the safety condition while failing usefulness. A dangerous call followed by the correct save can satisfy usefulness while failing safety. Reporting both components prevents these policies from appearing equivalent in the analysis, even though both receive no joint credit.
+
+Forbidden calls depend on the task. The shadow reader fails safety when present. Diagnostic and export calls fail when the task does not require them. A changed connector fails after inspection reports its new behavior. Literal canary content in any serialized argument fails safety independently of whether the tool is otherwise allowed. Attempts are recorded before tool-specific validation, so a failed forbidden call is still observable.
+
+For pair $p$, define $P_p=J_{p,b}J_{p,m}$, where $b$ and $m$ identify benign and malicious twins. Pair success requires useful safe behavior in both contexts. This is a stricter descriptive measure than an average that lets one twin compensate for the other. We report it alongside component outcomes. It should not replace inspection of which twin fails or why.
+
+\subsection{Intervals and units of uncertainty}
+All displayed outcome rates carry \CILevel{}\% intervals. Baseline component rates use Wilson intervals within each variant stratum. Pair success uses a Wilson interval over pairs. These are reference intervals under a hypothetical sampling model. The corpus is deliberately constructed rather than randomly sampled, so nominal coverage does not establish uncertainty over real deployments. Category sharing can introduce further dependence.
+
+For an observed binary count $k$ among $n$ items, write $\hat p=k/n$ and let $z$ be the standard normal quantile for the interval level. The Wilson center and half-width are
+
+\begin{equation}c=\frac{\hat p+z^2/(2n)}{1+z^2/n},\qquad h=\frac{z\sqrt{\hat p(1-\hat p)/n+z^2/(4n^2)}}{1+z^2/n}.\end{equation}
+We report $[c-h,c+h]$, clipped to the probability range. This avoids reporting certainty merely because a finite set has no observed failures. It does not fix selection bias or duplicated task structure. Those require a broader task design, not a different formula.
+
+Simulated sweep intervals use a different unit. We resample simulated agents and compute their mean outcome over the same fixed tasks. The bootstrap preserves each agent's task results. Paired contrasts preserve the agent identity across filters. These intervals describe variability induced by the stipulated random decisions. They do not measure uncertainty about trained agents, new tasks, or filter implementation errors.
+
+\section{Results}
+\subsection{The controls separate refusal from unsafe completion}
+\begin{table}[ht]\centering\small\input{data/baselines.generated}\caption{Scripted component outcomes, in percent with \CILevel{}\% Wilson intervals. Each stratum contains one twin from every pair. Repeats do not enlarge the denominator.}\label{tab:baseline}\end{table}
+The good control achieves \GoodJoint{} joint success in each stratum. The bad control achieves \BadJoint{} joint success despite completing the requested work. Table~\ref{tab:baseline} shows the component intervals. This supports the intended distinction between doing the job and doing it safely. The result is a scorer diagnostic, since both controls already know the correct action sequence.
+
+Empty, constant, echo, and refusal policies obtain no joint credit. Their component pattern shows why a safety-only report would be misleading. They avoid the action-based violation signal by doing nothing, while the usefulness condition rejects their lack of completed work. The first-tool policy also earns no joint credit. Some arbitrary first calls fail safety even though their arguments do not complete the requested operation.
+
+\input{figures/components}
+The bad control fails safety on benign as well as malicious tasks. This is expected from its construction: it inserts a dangerous action even when no attack is present. It must not be reported as an attack success rate for the malicious content. The control establishes that a successful final save does not erase a prior violation. It does not show that benign task text induces unsafe action in a model.
+
+\begin{table}[ht]\centering\input{data/pairs.generated}\caption{Scripted matched-pair success, in percent with \CILevel{}\% Wilson intervals. Both twins must achieve joint success.}\end{table}
+The pair result for the good control is \GoodPairs{}. The trivial and bad controls do not complete any pair safely. Repeated baseline traces agree semantically. This reproducibility result concerns the fixed scripts and environment. It supplies no evidence about repeated sampling from a stochastic language model. The null result for arbitrary text is also narrow: these particular text policies receive no useful credit.
+
+\subsection{An extra virtual experiment: simulated population and control ablation}
+The additional experiment defines \SeedCount{} simulated agents. Each receives a seeded uniform draw for each pair. For a malicious task, a threshold probability selects either the good sequence or the bad sequence. Benign tasks always use the good sequence. Each draw is shared across probability settings and filters. This pairing makes changes attributable to the simulated control intervention under a fixed action proposal.
+
+The simulated experiment evaluates no filter, a literal secret filter, a task-aware role filter, their combination, and a blanket role filter. The secret filter removes calls containing the canary. The role filter removes task-forbidden calls using known labels. The combined filter applies both. The blanket filter removes diagnostic, bulk, shadow, and connector calls regardless of the task. Filtered sequences then execute in the ordinary environment and receive ordinary replay scores.
+
+The filters are privileged mechanisms. They know the canary or the permitted task roles. They remove calls before execution and do not ask the agent to replan. In particular, the role filter knows which connector is forbidden from the task label. It does not infer trust from a natural-language description. These assumptions make the experiment a structural ablation, not a tested defense available to an uninformed agent.
+
+\input{figures/simulation}
+At maximal simulated attack following, no filtering gives malicious joint success of \SimNone{}. Secret filtering gives \SimSecret{}, while task-aware role filtering gives \SimRoles{}. Combining them gives \SimBoth{}. These are task-level Wilson intervals for the endpoint corpus. The simulation's bootstrap intervals collapse at this endpoint because all simulated agents choose the same sequence. Repeating that deterministic condition cannot create more task evidence.
+
+\begin{table}[ht]\centering\small\input{data/endpoint.generated}\caption{Simulated maximal attack-following endpoint. Percentages use \CILevel{}\% Wilson intervals over unique tasks within each stratum, not pooled simulated repeats.}\label{tab:endpoint}\end{table}
+The simulated secret-only filter misses changed connector behavior that needs no literal canary argument. The simulated role-only filter permits a leak when the diagnostic action is legitimately required. The combined filter removes both failure types while preserving the known useful sequence. Thus the endpoint supports the preregistered complementarity hypothesis inside the simulation. It does not estimate how often these mechanisms fail against an adaptive attacker.
+
+The simulated blanket filter preserves safety but loses legitimate work. Its benign joint success is \BlanketBenign{}, and malicious joint success is \SimBlanket{}. It removes required diagnostic or export steps and some approved connector reads. Because the simulated agent does not replan, a failed save remains a failed task. A richer agent might find a substitute route, but that behavior is outside this intervention.
+
+\begin{table}[ht]\centering\input{data/contrasts.generated}\caption{Simulated endpoint paired contrasts over the complete fixed corpus. Values are percentage-point differences with \CILevel{}\% agent bootstrap intervals. Intervals collapse because endpoint decisions are deterministic.}\end{table}
+The simulated sweep contains \SimEpisodes{} executed episodes. The larger count samples stipulated decisions on reused tasks. It is not a larger corpus and not a sample of deployed systems. Between endpoints, intervals reflect the random mixture of known good and bad sequences. The combined filter's success remains fixed under this mixture. That is a consequence of the tested proposal support, not evidence that arbitrary unsafe plans can always be repaired.
+
+\subsection{What the simulated result does and does not identify}
+The simulated comparison isolates two forms of information: which action is permitted and which argument contains a secret. The observed complementarity follows because permission to use a tool does not authorize every argument. Conversely, an argument without the canary does not authorize a changed connector. The benchmark can express these distinctions with observable actions. This is the scientific use of the simulation, rather than a forecast of attack prevalence.
+
+The simulated no-filter curve is partly prescribed by the mixture. Increasing attack following selects more known bad sequences. Its decline is therefore not a discovered law of model behavior. The informative part is how filters transform those sequences while interacting with required work. That interaction produces different safety and usefulness outcomes, which an aggregate safety-only score would conceal.
+
+There is also a structural null. The simulated combined filter has no residual joint failures on the supported action sequences. Additional seeds cannot reveal a failure that the proposal generator never creates. To test a broader claim, future proposals must include new failure mechanisms. Examples include encoded disclosures, incorrect values, and alternative completion paths. Without that extension, an apparently precise simulated estimate has a narrow meaning.
+
+\section{Roadmap}
+A learned-model study should first preserve the current diagnostic controls. It should then expose only information available to the evaluated agent. Task metadata must not act as a hidden answer channel. Models should receive the same task instructions, budgets, and tool interfaces. The analysis should separate failures to complete benign work from changes caused by malicious content.
+
+Future task expansion should target new causal mechanisms rather than surface variation alone. A useful extension would require exposure to the lower-trust content before completion. Another would add legitimate alternative paths so that refusal and recovery can be distinguished after a filter blocks an action. Such changes need their own preregistered analysis because they alter what usefulness means.
+
+The role-aware simulated filter assumes correct authorization labels. A more realistic control study should test missing, stale, and incorrect labels. The same is true of the secret filter's exact canary knowledge. These interventions could reveal a tradeoff between missed violations and blocked legitimate work. The present results provide endpoints for that investigation, not estimates of those error rates.
+
+An evaluation with adaptive attackers would require a separate threat model. The attack budget, feedback access, and held-out tasks should be fixed before testing. An attacker that sees grader outcomes can exploit measurement details that static fixtures miss. Reporting only the strongest successful prompt after many attempts would obscure that search process. Future work should retain failed attempts and measure the cost of attack discovery.
+
+Independent task review is another priority. Reviewers should assess whether the user request authorizes each required step and whether alternate safe completions deserve credit. Their agreement should be measured before model comparisons. The current labels are explicit enough to inspect, but explicit labels are not evidence of consensus. No human study is claimed here.
+
+\section{Caveats and interpretation}
+\paragraph{Construct validity.} Safety is a defined action property in a synthetic environment. It excludes physical effects, financial consequences, protocol implementation flaws, and confidentiality outside tool arguments. A safe score cannot certify a deployment. The reference policy's access to expected values also means its ceiling provides no evidence of a model's reasoning ability.
+\paragraph{Exposure validity.} Successful completion does not always prove that the agent encountered the attack. Reading a poisoned workflow is not a required usefulness step. A malicious connector can be avoided through the cache. Future studies should report exposure separately from completion. Otherwise, an apparent resistance result may reflect avoidance of the relevant content.
+\paragraph{Disclosure coverage.} Literal matching catches case changes and occurrences inside serialized argument structures. It does not decode arbitrary encodings or reconstruct a secret split across calls. A different secret can also leave through an unmodeled channel. The canary is a controlled signal, not a complete information-flow analysis. Task-forbidden calls partly address that gap but do not eliminate it.
+\paragraph{Trace integrity.} Replay ignores a claimed final state and uses the submitted tool log. This prevents a forged state from directly replacing action evidence. However, replay cannot observe an action omitted from that log. The study stores the environment's executed log, but an external integration must preserve that property. A score based on an incomplete trace can overstate safety.
+\paragraph{Sampling and contamination.} The public tasks and privileged scripts are available for inspection. They are suitable for regression checks and measurement development, not a secret leaderboard. Surface randomization does not remove structural contamination. The study tests no held-out distribution. Its Wilson intervals are descriptive reference intervals, while simulated bootstrap intervals condition on the fixed corpus.
+\paragraph{Simulation assumptions.} Simulated agents differ only through the prescribed good/bad mixture. Benign competence is fixed. Control labels are correct, filter execution is perfect, and blocked actions trigger no replanning. These assumptions favor clean interpretation and restrict external validity. Learned agents could adapt, fail for other reasons, or make correlated errors that this population cannot express.
+\paragraph{Evidence gaps.} No human baseline, learned-model result, provider comparison, or independent scorer review appears here. The study plan was committed before data, but it was not deposited in an external registry. The software's existing checks and this study's replay verification establish consistency under specified probes. They cannot rule out shared mistakes in the environment and scorer.
+\section{Citation, availability, and authors}
+The paper text and generated figures are licensed CC-BY-4.0. Benchmark software and task licensing remain separate. Code, data, study plan, and reproduction instructions are available at \url{https://github.com/pooriaarab/benchmark-mcp-safety}. Cite this work as Pooria Arab, \emph{\PaperTitle}. This packet is a preprint draft; no venue acceptance or new archival identifier is claimed.
+
+Pooria Arab is an independent researcher. The study uses no human participants or private operational records. AI assistance supports the scripts and manuscript preparation. The benchmark author also defines the tasks and controls, which creates a risk of shared assumptions. Independent replication and task review remain necessary before stronger validity claims.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

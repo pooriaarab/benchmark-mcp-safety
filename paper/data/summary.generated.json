@@ -1,0 +1,1919 @@
+{
+  "kind": "scripted-controls-and-simulated-population",
+  "tasks": 40,
+  "pairs": 20,
+  "ciLevel": 95,
+  "seeds": 16,
+  "probabilities": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "layers": [
+    "none",
+    "secret",
+    "roles",
+    "both",
+    "blanket"
+  ],
+  "options": {
+    "seed": 1,
+    "concurrency": 1,
+    "retries": 0,
+    "maxTurns": 12,
+    "maxToolCalls": 20,
+    "budgetUsd": 0
+  },
+  "baselineEpisodes": 560,
+  "simulatedEpisodes": 16000,
+  "coverage": [
+    {
+      "attack": "rug-pull",
+      "benign": 3,
+      "malicious": 3
+    },
+    {
+      "attack": "poisoned-skill",
+      "benign": 3,
+      "malicious": 3
+    },
+    {
+      "attack": "over-broad-scope",
+      "benign": 3,
+      "malicious": 3
+    },
+    {
+      "attack": "description-injection",
+      "benign": 4,
+      "malicious": 4
+    },
+    {
+      "attack": "tool-shadowing",
+      "benign": 4,
+      "malicious": 4
+    },
+    {
+      "attack": "canary-exfiltration",
+      "benign": 3,
+      "malicious": 3
+    }
+  ],
+  "baselineStats": [
+    {
+      "policy": "empty",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        }
+      ],
+      "pair": {
+        "value": 0,
+        "low": 0,
+        "high": 0.16112515805281938,
+        "k": 0,
+        "n": 20
+      }
+    },
+    {
+      "policy": "constant",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        }
+      ],
+      "pair": {
+        "value": 0,
+        "low": 0,
+        "high": 0.16112515805281938,
+        "k": 0,
+        "n": 20
+      }
+    },
+    {
+      "policy": "echo",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        }
+      ],
+      "pair": {
+        "value": 0,
+        "low": 0,
+        "high": 0.16112515805281938,
+        "k": 0,
+        "n": 20
+      }
+    },
+    {
+      "policy": "refuse",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        }
+      ],
+      "pair": {
+        "value": 0,
+        "low": 0,
+        "high": 0.16112515805281938,
+        "k": 0,
+        "n": 20
+      }
+    },
+    {
+      "policy": "first-tool",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 0.9,
+            "low": 0.6989663547715128,
+            "high": 0.9721335187862319,
+            "k": 18,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.9,
+            "low": 0.6989663547715128,
+            "high": 0.9721335187862319,
+            "k": 18,
+            "n": 20
+          },
+          "u": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        }
+      ],
+      "pair": {
+        "value": 0,
+        "low": 0,
+        "high": 0.16112515805281938,
+        "k": 0,
+        "n": 20
+      }
+    },
+    {
+      "policy": "packaged-good",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "j": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "u": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "j": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          }
+        }
+      ],
+      "pair": {
+        "value": 1,
+        "low": 0.8388748419471806,
+        "high": 1,
+        "k": 20,
+        "n": 20
+      }
+    },
+    {
+      "policy": "packaged-bad",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "u": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          },
+          "u": {
+            "value": 1,
+            "low": 0.8388748419471806,
+            "high": 1,
+            "k": 20,
+            "n": 20
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0.16112515805281938,
+            "k": 0,
+            "n": 20
+          }
+        }
+      ],
+      "pair": {
+        "value": 0,
+        "low": 0,
+        "high": 0.16112515805281938,
+        "k": 0,
+        "n": 20
+      }
+    }
+  ],
+  "simStats": [
+    {
+      "kind": "simulated",
+      "p": 0,
+      "layer": "none",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0,
+      "layer": "secret",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0,
+      "layer": "roles",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0,
+      "layer": "both",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0,
+      "layer": "blanket",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.25,
+      "layer": "none",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.7374999999999998,
+            "low": 0.696875,
+            "high": 0.775,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.7374999999999998,
+            "low": 0.696875,
+            "high": 0.775,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.25,
+      "layer": "secret",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.9624999999999999,
+            "low": 0.9499999999999997,
+            "high": 0.975,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.9624999999999999,
+            "low": 0.9499999999999997,
+            "high": 0.975,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.25,
+      "layer": "roles",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.9249999999999998,
+            "low": 0.9,
+            "high": 0.9468749999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.9249999999999998,
+            "low": 0.9,
+            "high": 0.9468749999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.25,
+      "layer": "both",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.25,
+      "layer": "blanket",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.5,
+      "layer": "none",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.47500000000000003,
+            "low": 0.42500000000000004,
+            "high": 0.5281250000000001,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.47500000000000003,
+            "low": 0.42500000000000004,
+            "high": 0.5281250000000001,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.5,
+      "layer": "secret",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.928125,
+            "low": 0.9124999999999999,
+            "high": 0.9468749999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.928125,
+            "low": 0.9124999999999999,
+            "high": 0.9468749999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.5,
+      "layer": "roles",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.8375000000000001,
+            "low": 0.8,
+            "high": 0.8750000000000001,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.8375000000000001,
+            "low": 0.8,
+            "high": 0.8750000000000001,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.5,
+      "layer": "both",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.5,
+      "layer": "blanket",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.75,
+      "layer": "none",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.20000000000000004,
+            "low": 0.171875,
+            "high": 0.234375,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.20000000000000004,
+            "low": 0.171875,
+            "high": 0.234375,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.75,
+      "layer": "secret",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.8781249999999998,
+            "low": 0.8624999999999998,
+            "high": 0.896875,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.8781249999999998,
+            "low": 0.8624999999999998,
+            "high": 0.896875,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.75,
+      "layer": "roles",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.7531249999999998,
+            "low": 0.7312499999999998,
+            "high": 0.7781250000000001,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.7531249999999998,
+            "low": 0.7312499999999998,
+            "high": 0.7781250000000001,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.75,
+      "layer": "both",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 0.75,
+      "layer": "blanket",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 1,
+      "layer": "none",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0,
+            "low": 0,
+            "high": 0,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0,
+            "low": 0,
+            "high": 0,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 1,
+      "layer": "secret",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.8499999999999998,
+            "low": 0.8499999999999998,
+            "high": 0.8499999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.8499999999999998,
+            "low": 0.8499999999999998,
+            "high": 0.8499999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 1,
+      "layer": "roles",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 1,
+      "layer": "both",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    },
+    {
+      "kind": "simulated",
+      "p": 1,
+      "layer": "blanket",
+      "strata": [
+        {
+          "variant": "benign",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.5,
+            "low": 0.5,
+            "high": 0.5,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        },
+        {
+          "variant": "malicious",
+          "s": {
+            "value": 1,
+            "low": 1,
+            "high": 1,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "u": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          },
+          "j": {
+            "value": 0.6999999999999998,
+            "low": 0.6999999999999998,
+            "high": 0.6999999999999998,
+            "draws": 2000,
+            "seed": 20261029
+          }
+        }
+      ]
+    }
+  ],
+  "contrasts": [
+    {
+      "kind": "simulated",
+      "reference": "both",
+      "layer": "none",
+      "p": 1,
+      "jDifference": {
+        "value": 0.5,
+        "low": 0.5,
+        "high": 0.5,
+        "draws": 2000,
+        "seed": 20261029
+      }
+    },
+    {
+      "kind": "simulated",
+      "reference": "both",
+      "layer": "secret",
+      "p": 1,
+      "jDifference": {
+        "value": 0.07499999999999996,
+        "low": 0.07499999999999996,
+        "high": 0.07499999999999996,
+        "draws": 2000,
+        "seed": 20261029
+      }
+    },
+    {
+      "kind": "simulated",
+      "reference": "both",
+      "layer": "roles",
+      "p": 1,
+      "jDifference": {
+        "value": 0.14999999999999997,
+        "low": 0.14999999999999997,
+        "high": 0.14999999999999997,
+        "draws": 2000,
+        "seed": 20261029
+      }
+    },
+    {
+      "kind": "simulated",
+      "reference": "both",
+      "layer": "blanket",
+      "p": 1,
+      "jDifference": {
+        "value": 0.4000000000000001,
+        "low": 0.4000000000000001,
+        "high": 0.4000000000000001,
+        "draws": 2000,
+        "seed": 20261029
+      }
+    }
+  ],
+  "costUsd": 0,
+  "repeatIdentical": true,
+  "freeModels": "Not run: no free-only proxy configured for this study; external availability not tested."
+}
